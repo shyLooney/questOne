@@ -1,0 +1,9 @@
+com/example/demo/TransformService.class
+com/example/demo/WebSocketConfig.class
+com/example/demo/web/rest/RegisterRestController.class
+com/example/demo/repository/postgres/PersonPostgresRepository.class
+com/example/demo/DemoApplication.class
+com/example/demo/entity/postgres/PersonPostgres.class
+com/example/demo/repository/mongo/PersonMongoRepository.class
+com/example/demo/entity/mongo/PersonMongo.class
+com/example/demo/web/controller/RegisterController.class

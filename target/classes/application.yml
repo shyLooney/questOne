@@ -1,0 +1,18 @@
+spring:
+  datasource:
+#    class-driver: org.postgresql.Driver
+    username: admin
+    password: admin
+    url: jdbc:postgresql://172.17.0.1:5432/postgre_db
+  data:
+    mongodb:
+#      class-driver: org.mongodb.Driver
+      database: demo
+      username: admin
+      password: password
+      url: mongodb://admin:password@172.17.0.1:27017/demo?authSource=admin
+      host: 172.17.0.1
+      port: 27017
+#  jpa:
+#    hibernate:
+#      ddl-auto: create

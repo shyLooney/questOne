@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../sockjs.min.js"></script>
+    <script src="../stomp.js"></script>
+</head>
+<body>
+<form method="POST" action="/person" id="registerForm">
+    <input type="number" name="id" id="id">
+    <input type="text" name="name" id="name">
+    <input type="submit" value="Submit"/>
+</form>
+
+<h2>Mongo</h2>
+<table id="tableOne">
+    <tr>
+        <th>id</th>
+        <th>name</th>
+    </tr>
+</table>
+
+<h2>Postgres</h2>
+<table id="tableTwo">
+    <tr>
+        <th>id</th>
+        <th>name</th>
+    </tr>
+</table>
+</body>
+
+<script>
+
+    function sendPostRequest(url, data, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                callback(xhr.responseText);
+            }
+        };
+        xhr.send(JSON.stringify(data));
+        addRowOne(data.id, data.name);
+    }
+
+    // Обработчик события отправки формы
+    document.getElementById("registerForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        let formData = {
+            id: document.getElementById("id").value,
+            name: document.getElementById("name").value,
+        };
+
+        let url = "/person";
+
+        sendPostRequest(url, formData, function (response) {
+            console.log("Ответ от сервера:", response);
+        });
+    });
+
+    fetch('/person/postgres' + name)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(elem => {
+                addRowTwo(elem.id, elem.name);
+            });
+        })
+        .catch(error => {
+            console.error('Произошла ошибка при обработке запроса:', error);
+        });
+
+    fetch('/person/mongo' + name)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(elem => {
+                addRowOne(elem.id, elem.name);
+            });
+        })
+        .catch(error => {
+            console.error('Произошла ошибка при обработке запроса:', error);
+        });
+
+    let socket = new SockJS("person");
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        // console.log('Connected: ' + frame);
+        stompClient.subscribe('/topic/person?type=postgres', function (response) {
+            let data = JSON.parse(response.body);
+            console.log(data);
+            addRowTwo(data.id, data.name);
+        });
+    });
+
+    function addRowOne(id, name) {
+        let table = document.getElementById("tableOne");
+        let row = table.insertRow(-1);
+        let cell1 = row.insertCell(0);
+        let cell2 = row.insertCell(1);
+        cell1.innerHTML = id;
+        cell2.innerHTML = name;
+    }
+
+    function addRowTwo(id, name) {
+        let table = document.getElementById("tableTwo");
+        let row = table.insertRow(-1);
+        let cell1 = row.insertCell(0);
+        let cell2 = row.insertCell(1);
+        cell1.innerHTML = id;
+        cell2.innerHTML = name;
+    }
+</script>
+
+</html>

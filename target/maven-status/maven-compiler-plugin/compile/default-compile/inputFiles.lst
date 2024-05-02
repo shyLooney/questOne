@@ -1,0 +1,9 @@
+/home/ADMSK/elancev/Рабочий стол/demo/src/main/java/com/example/demo/repository/postgres/PersonPostgresRepository.java
+/home/ADMSK/elancev/Рабочий стол/demo/src/main/java/com/example/demo/entity/mongo/PersonMongo.java
+/home/ADMSK/elancev/Рабочий стол/demo/src/main/java/com/example/demo/entity/postgres/PersonPostgres.java
+/home/ADMSK/elancev/Рабочий стол/demo/src/main/java/com/example/demo/TransformService.java
+/home/ADMSK/elancev/Рабочий стол/demo/src/main/java/com/example/demo/DemoApplication.java
+/home/ADMSK/elancev/Рабочий стол/demo/src/main/java/com/example/demo/WebSocketConfig.java
+/home/ADMSK/elancev/Рабочий стол/demo/src/main/java/com/example/demo/web/controller/RegisterController.java
+/home/ADMSK/elancev/Рабочий стол/demo/src/main/java/com/example/demo/repository/mongo/PersonMongoRepository.java
+/home/ADMSK/elancev/Рабочий стол/demo/src/main/java/com/example/demo/web/rest/RegisterRestController.java
